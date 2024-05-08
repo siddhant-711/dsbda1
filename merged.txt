@@ -1,0 +1,474 @@
+			pr1
+
+
+
+
+    import numpy as np
+    import pandas as pd
+
+    df=pd.read_excel('facebook_metrics.xlsx')
+    df
+
+Sort data
+
+    sorted_data = df.sort_values('Page total likes', ascending = False)
+    sorted_data
+
+Transpose data
+
+    df.transpose() 
+
+Shape data
+
+    shape_of_data = df.shape
+    shape_of_data
+
+Reshape data
+
+    pivot_table = pd.pivot_table(df, index=['Type', 'Category'],values='comment')
+    print(pivot_table)
+
+Reshaping in the context of data processing is the transformation of the
+structure of a dataset. It involves changing how the data is organized
+into rows and columns. There are several ways to reshape data, but the
+two most common methods are:
+
+Pivoting: This is the process of rotating the data from a 'long' format
+to a 'wide' format. It involves turning unique values from one column
+into multiple columns in the output and filling the corresponding cells
+with values from another column.
+
+In Python, the pandas library provides several functions for reshaping
+data, including pivot, pivot_table, melt, stack, and unstack
+
+
+
+
+		PR 2 
+
+
+
+    import numpy as np
+    import pandas as pd
+
+    df=pd.read_excel('facebook_metrics.xlsx')
+    df
+
+creatr subset
+
+    df1=df[['Page total likes', 'Type', 'Category', 'Post Month', 'Post Weekday']].loc[0:9]
+    df1
+
+    df2=df[['Page total likes', 'Type', 'Category', 'Post Month', 'Post Weekday']].loc[10:19]
+    df2
+
+    df3=df[['Page total likes', 'Type', 'Category', 'Post Month', 'Post Weekday']].loc[20:29]
+    df3
+
+Merge subset
+
+    merged_data = pd.concat([df1,df2,df3])
+    merged_data
+
+The concat function in pandas is used to concatenate pandas objects
+along a particular axis with optional set logic along the other axes. In
+this example, df1 and df2 are concatenated along the row axis (the
+default axis), resulting in a new dataframe that includes the rows from
+both df1 and df2.
+
+Sort Data
+
+    sorted_data = df.sort_values('Page total likes', ascending = False)
+    sorted_data
+
+The concat function in pandas is used to concatenate pandas objects
+along a particular axis with optional set logic along the other axes.
+
+sort_values sorts the data in ascending order. If you want to sort the
+data in descending order, you can pass ascending=False to the function:
+
+commonly used functions
+
+by: Single label or list. Column or index labels to order by.
+
+axis: {0 or 'index', 1 or 'columns'}, default 0. Axis to be sorted.
+
+ascending: Bool or list of bools, default True. Sort ascending vs.
+descending. Specify list for multiple sort orders. If this is a list of
+bools, must match the length of the by.
+
+inplace: Bool, default False. If True, perform operation in-place.
+
+kind: {'quicksort', 'mergesort', 'heapsort'}, default 'quicksort'.
+Choice of sorting algorithm.
+
+na_position: {'first', 'last'}, default 'last'. Puts NaNs at the
+beginning if 'first'; 'last' puts NaNs at the end.
+
+df.sort_values(by='col1', ascending=False, kind='mergesort',
+na_position='first')
+
+
+
+
+		PR 3 
+
+
+
+    
+
+    import pandas as pd #Python library used for working with data sets
+    import numpy as np #Python library used for working with arrays
+
+
+    from sklearn.model_selection import train_test_split 
+    from sklearn.naive_bayes import GaussianNB,MultinomialNB
+    from sklearn.metrics import accuracy_score 
+
+    #GaussianNB is a classification technique used in 
+    #Machine Learning (ML) based on the probabilistic approach and Gaussian distribution
+
+    #MultinomiaNB is a Naive Bayes classifier is suitable for 
+    #classification with discrete features (e.g., word counts for text classification)
+
+    DataFrame1=pd.read_csv('heart.csv') #Read a comma-separated values (csv) file into DataFrame
+    DataFrame1
+
+    DataFrame2=pd.read_csv('AirQuality.csv',sep=';') #Read a comma-separated values (csv) file into DataFrame
+    DataFrame2
+
+Data Transformation
+
+Data transformation is a process in which the data is converted from one
+format or structure into another format or structure
+
+    DataFrame1['sex'] = DataFrame1['sex'].replace(1, 'M') #Replacing 1 with M
+
+    DataFrame1['sex'] = DataFrame1['sex'].replace(0, 'F') #Replacing 0 with F
+
+    DataFrame1.head()
+
+    from sklearn.preprocessing import LabelEncoder
+    labelencoder=LabelEncoder()
+    DataFrame1["sex"]=labelencoder.fit_transform(DataFrame1["sex"])
+    DataFrame1 #used to encode categorical variables into numerical labels
+
+The provided code is using the LabelEncoder class from
+sklearn.preprocessing to transform non-numerical labels (as long as they
+are hashable and comparable) to numerical labels.
+
+Error Correction
+
+    DataFrame1[DataFrame1['ca']==4]
+
+    DataFrame1['ca'] = DataFrame1['ca'].replace(4, np.NaN)  #It locates the rows where the value in the 'ca' column is equal to 4 and replaces those values with NaN (Not a Number)
+    DataFrame1
+
+    DataFrame1 = DataFrame1.fillna(DataFrame1.median())
+    DataFrame1
+
+    DataFrame1.isnull().sum()
+
+    DataFrame1
+
+Model Building
+
+    X_train, X_test, y_train, y_test = train_test_split(DataFrame1.iloc[:,:-1], DataFrame1.iloc[:,-1], test_size = 0.3, random_state = 0)
+
+    X_train.shape, X_test.shape,y_train.shape,y_test.shape
+
+    gnb = GaussianNB()
+
+GaussianNB stands for Gaussian Naive Bayes. It's a classification
+algorithm based on Bayes' theorem, with the assumption of independence
+between every pair of features. Gaussian Naive Bayes classifier assumes
+that the likelihood of the features is Gaussian, meaning, the
+distribution of the features given the class variable is assumed to be
+Gaussian or normal.
+
+    gnb.fit(X_train, y_train)
+    #fitting a Gaussian Naive Bayes (GNB) model on the training data
+
+    y_pred = gnb.predict(X_test)
+    y_pred
+
+    print('Model accuracy score: {0:0.4f}'. format(accuracy_score(y_test, y_pred)))
+
+extra
+
+DataFrame1.isna().sum().sum() used to count the total number of missing
+(NaN) values in a pandas DataFrame named DataFrame1
+
+DataFrame2.dtypes
+
+
+
+
+
+
+		PR 4
+
+
+
+    
+
+    import pandas as pd #Python library used for working with data sets
+    import numpy as np #Python library used for working with arrays
+
+    DataFrame1=pd.read_csv('heart.csv') #Read a comma-separated values (csv) file into DataFrame
+    DataFrame1
+
+    DataFrame2=pd.read_csv('AirQuality.csv',sep=';') #Read a comma-separated values (csv) file into DataFrame
+    DataFrame2
+
+    DataFrame1.isna().sum().sum() #Detect missing values for an array-like object
+    #.sum() sums up the numbers in the list
+
+    DataFrame1.dtypes
+
+    DataFrame2.dtypes
+
+DATA CLEANING
+
+    DataFrame3=DataFrame2.iloc[:,:15] #iloc stands for “integer location”.
+    #It is used to select rows and columns from a Pandas DataFrame or a Series using integer-based indexing
+
+    DataFrame3
+
+    DataFrame3.isna().sum().sum() #Detect missing values for an array-like object
+
+    DataFrame4=DataFrame3.dropna() #Remove missing values
+
+    DataFrame4 
+
+    #Replacing the Object dtype of Date to Date dtype
+    DataFrame4['Date'] = pd.to_datetime(DataFrame4['Date'], dayfirst=True)
+
+    DataFrame4
+
+    #To Replace the Comma's with Dot
+    DataFrame4.replace(to_replace=',',value='.',regex=True,inplace=True)
+    DataFrame4
+
+    DataFrame4.drop_duplicates(inplace=True)
+    DataFrame4 #Drop Duplicates
+
+    DataFrame1
+
+    DataFrame4
+
+DATA INTEGRATION
+
+    DataSet1=DataFrame4[['Date','Time','T','RH','AH']].loc[0:50]
+    DataSet1.head()
+
+    DataSet2=DataFrame4[['Date','Time','T','RH','AH']].loc[51:100]
+    DataSet2.head()
+
+    DataSet3=DataFrame1[['age','sex','cp','ca','target']].loc[50:100]
+    DataSet3.head()
+
+    Merged=pd.concat([DataSet1,DataSet2])
+    Merged  #Concatenation of two DataFrames
+
+Data Transformation
+
+    DataFrame1['sex'] = DataFrame1['sex'].replace(1, 'M')#Replacing 1 with M
+
+    DataFrame1['sex'] = DataFrame1['sex'].replace(0, 'F') #Replacing 0 with F
+
+    DataFrame1.head()
+
+    from sklearn.preprocessing import LabelEncoder #Label encoding is a popular encoding technique for handling categorical variables.
+    labelencoder=LabelEncoder() #Encode target labels with value between 0 and n_classes-1.
+    DataFrame1["sex"]=labelencoder.fit_transform(DataFrame1["sex"])
+    DataFrame1 #used to encode categorical variables into numerical labels
+
+
+
+
+
+		PR 5
+
+
+
+    
+    import pandas as pd
+    import swifter 
+
+Swifter is a Python library that efficiently applies any function to a
+pandas dataframe or series in the fastest available manner. It can be
+used to speed up your pandas apply() functions, by vectorizing your
+function where possible and otherwise using Dask to parallelize the
+function application.
+
+    # Load the dataset
+    df = pd.read_csv('forestfires.csv')
+    df
+
+    # Define the map function
+    def map_function(row):
+        # Calculate the product of 'temp' and 'wind' for each row
+        result = row['X'] * row['wind']
+        return result
+
+    # Apply the map function to each row in parallel using swifter
+    df['map_result'] = df.swifter.apply(map_function, axis=1)
+    df
+
+The axis=1 argument means that the function is applied to each row (if
+axis=0, the function would be applied to each column).
+
+    # Perform the reduce operation
+    reduce_result = df['map_result'].sum()
+    # Print the reduce result
+    reduce_result
+
+    # Calculate descriptive statistics of numeric columns
+    descriptive_stats=df.describe()
+    descriptive_stats
+
+The describe() function in pandas is used to generate descriptive
+statistics of a DataFrame or Series. It provides a statistical summary
+of the central tendency, dispersion, and shape of the distribution of a
+dataset, excluding NaN values.
+
+By default, it provides the descriptive statistics of the numeric
+columns and includes the following:
+
+count: Number of non-null observations. mean: Mean of the values. std:
+Standard deviation of the observations. min: Minimum value. 25%: First
+quartile (25th percentile). 50%: Second quartile (Median, 50th
+percentile). 75%: Third quartile (75th percentile). max: Maximum value.
+The result is stored in the descriptive_stats DataFrame. The final line
+descriptive_stats displays this DataFrame.
+
+    # Group the data by a specific column and calculate aggregate statistics
+    grouped_stats=df.groupby('month').agg({'area':['sum','mean','max']})
+    grouped_stats
+
+
+    import matplotlib.pyplot as plt
+
+    # Plot a bar chart of the number of fires per month
+    df['month'].value_counts().plot(kind='bar')
+    plt.xlabel('Month')
+    plt.ylabel('Number of Fires')
+    plt.title('Number of Fires per Month')
+    plt.show()
+
+
+
+		PR 6
+
+
+
+    
+
+    import matplotlib.pyplot as plt
+    import pandas as pd
+
+    import seaborn as sns
+
+    # Assuming df is your DataFrame and 'column1', 'column2' are columns in your DataFrame
+    df = pd.read_excel('facebook_metrics.xlsx')  # replace with your file path
+
+    df
+
+    # Scatter plot showing the relationship between 'Page total likes' and 'Lifetime Post Total Reach'
+    plt.scatter(df['Page total likes'], df['Lifetime Post Total Reach'])
+    plt.xlabel('Page total likes')
+    plt.ylabel('Lifetime Post Total Reach')
+    plt.title('Scatter plot of Page total likes vs Lifetime Post Total Reach')
+    plt.show()
+
+    # Histogram showing the distribution of 'Page total likes'
+    sns.histplot(df['Page total likes'])
+    plt.title('Histogram of Page total likes')
+    plt.show()
+
+    # Select only numeric columns
+    numeric_df = df.select_dtypes(include=['float64', 'int64'])
+
+    # Compute the correlation matrix
+    corr = numeric_df.corr()
+
+    # Generate a heatmap
+    sns.heatmap(corr, annot=True, cmap='coolwarm')
+    plt.title('Correlation heatmap of the DataFrame')
+    plt.show()
+
+    # Box plot of Lifetime Post Consumers by Category
+    plt.subplot(1, 1, 1)  # Create a subplot (2 rows, 2 columns, subplot 4)
+    plt.boxplot([df[df['Category'] == 1]['Lifetime Post Consumers'],
+                 df[df['Category'] == 2]['Lifetime Post Consumers'],
+                 df[df['Category'] == 3]['Lifetime Post Consumers']],
+                labels=['Category 1', 'Category 2', 'Category 3'])
+    plt.xlabel('Category')
+    plt.ylabel('Lifetime Post Consumers')
+    plt.title('Lifetime Post Consumers by Category')
+
+    plt.tight_layout()  # Adjust the spacing between subplots
+    plt.show()  # Display the plots
+
+
+
+		PR 7 
+
+
+
+    
+
+    import pandas as pd #Python library used for working with data sets
+    import numpy as np #Python library used for working with arrays
+    import seaborn as sn # library for making statistical graphics in Python
+    import matplotlib.pyplot as mat #used to create 2D graphs and plots by using python scripts
+
+
+    df2=pd.read_csv('heart.csv')
+
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10, 6))
+    plt.subplot(2, 2, 1)  # Create a subplot (2 rows, 2 columns, subplot 1)
+    plt.hist(df2['age'], bins=10, edgecolor='k')
+    plt.xlabel('Age')
+    plt.ylabel('Frequency')
+    plt.title('Age Distribution')
+    plt.show()
+
+    # Scatter plot of age and cholesterol
+    plt.subplot(2, 2, 3)  # Create a subplot (2 rows, 2 columns, subplot 3)
+    plt.scatter(df2['age'], df2['chol'], alpha=0.5)
+    plt.xlabel('Age')
+    plt.ylabel('Cholesterol')
+    plt.title('Age vs. Cholesterol')
+
+    # Box plot of resting blood pressure by target
+    plt.subplot(2, 2, 4)  # Create a subplot (2 rows, 2 columns, subplot 4)
+    plt.boxplot([df2[df2['target'] == 0]['trestbps'], df2[df2['target'] == 1]['trestbps']],labels=['No Disease', 'Disease'])
+    plt.xlabel('Target')
+    plt.ylabel('Resting Blood Pressure')
+    plt.title('Resting Blood Pressure by Target')
+
+    plt.tight_layout()  # Adjust the spacing between subplots
+    plt.show()  # Display the plots
+
+    df3=pd.read_csv('AirQuality.csv', sep=';')
+    df3.head()
+
+    # Select only numeric columns
+    numeric_df = df3.select_dtypes(include=['float64', 'int64'])
+    # Compute the correlation matrix
+    corr = numeric_df.corr()
+
+    # Generate a heatmap
+    sn.heatmap(corr, annot=True, cmap='coolwarm')
+    plt.title('Correlation heatmap of the DataFrame')
+    plt.show()
+
+    # Scatter plot of NOx(GT) vs. NO2(GT)
+    plt.subplot(2, 2, 2)  # Create a subplot (2 rows, 2 columns, subplot 2)
+    plt.scatter(df3['NOx(GT)'], df3['NO2(GT)'], alpha=0.5)
+    plt.xlabel('NOx(GT)')
+    plt.ylabel('NO2(GT)')
+    plt.title('NOx(GT) vs. NO2(GT)')
